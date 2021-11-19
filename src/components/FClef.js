@@ -5,7 +5,7 @@ const FClef = () => {
     <div style={{ display: "flex" }}>
       {/* //FCLEF ICON */}
       <span style={{ fontSize: "72px" }}>&#119074;</span>
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "5%" }}>
         <br />
         <hr />
         <hr />

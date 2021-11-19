@@ -5,7 +5,7 @@ const GClef = () => {
     <div style={{ display: "flex" }}>
       {/* //GCLEF ICON */}
       <span style={{ fontSize: "72px" }}>&#119070;</span>
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "5%" }}>
         <br />
         <hr />
         <hr />

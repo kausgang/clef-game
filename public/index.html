@@ -47,22 +47,27 @@
     -->
   </body>
 
+  <script src="./JS/main.js"></script>
+  <!-- <script
+    src="http://www.verovio.org/javascript/latest/verovio-toolkit-wasm.js"
+    defer
+  ></script> -->
   <script>
-    document.onclick = (e) => {
-      // when a key is pressed, remove all previously active keys css
-      keys = document.querySelector(".active");
-      if (keys != null) keys.classList.remove("active");
+    // document.onclick = (e) => {
+    //   // when a key is pressed, remove all previously active keys css
+    //   keys = document.querySelector(".active");
+    //   if (keys != null) keys.classList.remove("active");
 
-      const audio = e.target.children[0];
-      audio.currentTime = 0;
-      audio.play();
+    //   const audio = e.target.children[0];
+    //   audio.currentTime = 0;
+    //   audio.play();
 
-      e.target.classList.add("active");
+    //   e.target.classList.add("active");
 
-      // when the audio ends, remove the active key css
-      audio.addEventListener("ended", () => {
-        e.target.classList.remove("active");
-      });
-    };
+    //   // when the audio ends, remove the active key css
+    //   audio.addEventListener("ended", () => {
+    //     e.target.classList.remove("active");
+    //   });
+    // };
   </script>
 </html>
