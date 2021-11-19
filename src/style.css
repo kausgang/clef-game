@@ -1,0 +1,19 @@
+.piano {
+  display: flex;
+  position: relative;
+}
+
+.octave {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
+/* .hints {
+  display: block;
+  width: 100%;
+  opacity: 0.5;
+  position: absolute;
+  bottom: 7px;
+  font-size: 20px;
+} */

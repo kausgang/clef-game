@@ -1,0 +1,14 @@
+.key.sharp {
+  position: relative;
+  width: 11.43%;
+  height: 30vh;
+  background: #000;
+  color: #eee;
+  z-index: 10;
+  margin-left: -5.71%;
+  margin-right: -5.71%;
+}
+
+.key.sharp.active {
+  background-color: #333;
+}
