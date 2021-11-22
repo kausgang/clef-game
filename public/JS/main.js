@@ -1,16 +1,18 @@
-document.onclick = (e) => {
-  // when a key is pressed, remove all previously active keys css
-  keys = document.querySelector(".active");
-  if (keys != null) keys.classList.remove("active");
+jQuery(() => {
+  //play audio when key clicked
+  onClickAudio();
 
-  const audio = e.target.children[0];
-  audio.currentTime = 0;
-  audio.play();
+  //   draw empty stave
+  const VF = createEmptyStave();
 
-  e.target.classList.add("active");
+  $("#change_note").on("click", hidestave);
 
-  // when the audio ends, remove the active key css
-  audio.addEventListener("ended", () => {
-    e.target.classList.remove("active");
+  $("#key_signature").on("change", (element) => {
+    console.log($(element).val());
   });
+});
+
+const hidestave = () => {
+  console.log($("#clef").children().hide());
+  createCustomStave("D");
 };

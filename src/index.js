@@ -4,4 +4,4 @@ import App from "./App";
 
 // import "./style.css";
 
-reactDom.render(<App className="app" />, document.querySelector("#root"));
+reactDom.render(<App className="app" />, document.querySelector("#piano"));

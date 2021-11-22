@@ -6,12 +6,12 @@ const FClef = () => {
       {/* //FCLEF ICON */}
       <span style={{ fontSize: "72px" }}>&#119074;</span>
       <div style={{ width: "5%" }}>
-        <br />
+        {/* <br />
+        <hr></hr>
         <hr />
         <hr />
         <hr />
-        <hr />
-        <hr />
+        <hr /> */}
       </div>
     </div>
   );

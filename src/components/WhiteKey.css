@@ -25,3 +25,7 @@
   margin-left: -0.1%;
   margin-right: -0.1%;
 }
+
+.key.middleC.active {
+  background-color: #ccc;
+}

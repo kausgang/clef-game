@@ -1,25 +1,19 @@
 import React from "react";
 import Piano from "./components/Piano";
-import Clef from "./components/Clef";
+// import Clef from "./components/Clef";
 import "./App.css";
 
+// import Vex from "vexflow";
+
 class App extends React.Component {
+  findKey = (key) => {
+    console.log(key);
+  };
+
   render() {
     return (
       <div>
-        <div
-          style={{
-            position: "absolute",
-            top: 20,
-            width: "90%",
-            margin: "20px",
-          }}
-        >
-          <Clef />
-        </div>
-        <div style={{ position: "absolute", bottom: 0, width: "99%" }}>
-          <Piano />
-        </div>
+        <Piano />
       </div>
     );
   }
