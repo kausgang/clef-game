@@ -1,26 +1,3 @@
-// play audio when clicked
-function onClickAudio(question) {
-  $(".piano").on("click", (e) => {
-    // console.log(e.target.id); //HAS THE NOTE
-
-    keys = document.querySelector(".active");
-    if (keys != null) keys.classList.remove("active");
-
-    const audio = e.target.children[0];
-    audio.currentTime = 0;
-    audio.play();
-
-    e.target.classList.add("active");
-
-    // when the audio ends, remove the active key css
-    audio.addEventListener("ended", () => {
-      e.target.classList.remove("active");
-    });
-
-    return e.target.value;
-  });
-}
-
 function createEmptyStave(VF, context, renderer) {
   // Configure the rendering context.
   width = $(document).width();
@@ -29,9 +6,9 @@ function createEmptyStave(VF, context, renderer) {
   // Create a stave of width 400 at position 10, 20 on the canvas.
 
   //   var stave_treble = new VF.Stave(10, 20, 400);
-  var stave_treble = new VF.Stave(width * 0.3, 20, 400);
+  var stave_treble = new VF.Stave(width * 0.35, 20, 400);
   //   var stave_bass = new VF.Stave(10, 90, 400);
-  var stave_bass = new VF.Stave(width * 0.3, 90, 400);
+  var stave_bass = new VF.Stave(width * 0.35, 90, 400);
 
   // Add a clef and time signature.
   stave_treble.addClef("treble").addTimeSignature("4/4");
@@ -51,8 +28,8 @@ function createCustomStave(VF, context, renderer, keySignature) {
   renderer.resize(width, 200);
 
   // Create a stave of width 400 at position 10, 20 on the canvas.
-  var stave_treble = new VF.Stave(width * 0.3, 20, 400);
-  var stave_bass = new VF.Stave(width * 0.3, 90, 400);
+  var stave_treble = new VF.Stave(width * 0.35, 20, 400);
+  var stave_bass = new VF.Stave(width * 0.35, 90, 400);
 
   // Add a clef and time signature.
   stave_treble.setTimeSignature("4/4");
@@ -75,7 +52,7 @@ function _drawNote(VF, context, renderer, keySignature, clef, note, octave) {
   renderer.resize(width, 200);
 
   // Create a stave of width 400 at position 10, 20 on the canvas.
-  var stave = new VF.Stave(width * 0.3, 20, 400);
+  var stave = new VF.Stave(width * 0.35, 20, 400);
 
   // Add a clef and time signature.
   stave.setTimeSignature("4/4");
