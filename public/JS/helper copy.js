@@ -1,7 +1,7 @@
 // play audio when clicked
-function onClickAudio(question) {
+function onClickAudio() {
   $(".piano").on("click", (e) => {
-    // console.log(e.target.id); //HAS THE NOTE
+    console.log(e.target.id); //HAS THE NOTE
 
     keys = document.querySelector(".active");
     if (keys != null) keys.classList.remove("active");
@@ -16,15 +16,23 @@ function onClickAudio(question) {
     audio.addEventListener("ended", () => {
       e.target.classList.remove("active");
     });
-
-    return e.target.value;
   });
 }
 
-function createEmptyStave(VF, context, renderer) {
+function createEmptyStave() {
+  //   create empty stave
+  VF = Vex.Flow;
+
+  // Create an SVG renderer and attach it to the DIV element named "boo".
+  var div = document.getElementById("clef");
+  var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+
   // Configure the rendering context.
   width = $(document).width();
+  //   renderer.resize(500, 200);
   renderer.resize(width, 200);
+  var context = renderer.getContext();
+  context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
 
   // Create a stave of width 400 at position 10, 20 on the canvas.
 
@@ -41,14 +49,23 @@ function createEmptyStave(VF, context, renderer) {
   stave_treble.setContext(context).draw();
   stave_bass.setContext(context).draw();
 
-  //   return VF;
+  return VF;
 }
 
 // create custom stave
-function createCustomStave(VF, context, renderer, keySignature) {
-  // Configure the rendering context.
+function createCustomStave(keySignature) {
+  //   create empty stave
+  VF = Vex.Flow;
+
+  // Create an SVG renderer and attach it to the DIV element named "boo".
+  var div = document.getElementById("clef");
+  var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+
   width = $(document).width();
+  //   renderer.resize(500, 200);
   renderer.resize(width, 200);
+  var context = renderer.getContext();
+  context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
 
   // Create a stave of width 400 at position 10, 20 on the canvas.
   var stave_treble = new VF.Stave(width * 0.3, 20, 400);
@@ -66,34 +83,30 @@ function createCustomStave(VF, context, renderer, keySignature) {
   stave_treble.setContext(context).draw();
   stave_bass.setContext(context).draw();
 
-  //   return VF;
+  return VF;
 }
 
-function _drawNote(VF, context, renderer, keySignature, clef, note, octave) {
-  // Configure the rendering context.
-  width = $(document).width();
-  renderer.resize(width, 200);
+function _drawNote(keySignature) {
+  const VF = createCustomStave(keySignature);
 
-  // Create a stave of width 400 at position 10, 20 on the canvas.
-  var stave = new VF.Stave(width * 0.3, 20, 400);
+  var notes = [
+    // A quarter-note C.
+    new VF.StaveNote({ clef: "treble", keys: ["c/4"], duration: "q" }),
 
-  // Add a clef and time signature.
-  stave.setTimeSignature("4/4");
+    // A quarter-note D.
+    new VF.StaveNote({ clef: "treble", keys: ["d/4"], duration: "q" }),
 
-  // Add a clef and key signature.
-  stave.addClef(clef).addKeySignature(keySignature);
-  //    stave_bass.addClef("bass").addKeySignature(keySignature);
+    // A quarter-note rest. Note that the key (b/4) specifies the vertical
+    // position of the rest.
+    new VF.StaveNote({ clef: "treble", keys: ["b/4"], duration: "qr" }),
 
-  // Connect it to the rendering context and draw!
-  stave.setContext(context).draw();
-  //    stave_bass.setContext(context).draw();
-
-  // Make sure the staves have a litle room before starting point for notes
-  var startX = stave.getNoteStartX() + 100;
-  stave.setNoteStartX(startX);
-
-  var key = note + "/" + octave;
-  var notes = [new VF.StaveNote({ clef: clef, keys: [key], duration: "w" })];
+    // A C-Major chord.
+    new VF.StaveNote({
+      clef: "treble",
+      keys: ["c/4", "e/4", "g/4"],
+      duration: "q",
+    }),
+  ];
 
   // Create a voice in 4/4 and add the notes from above
   var voice = new VF.Voice({ num_beats: 4, beat_value: 4 });
@@ -103,39 +116,5 @@ function _drawNote(VF, context, renderer, keySignature, clef, note, octave) {
   var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
 
   // Render voice
-  voice.draw(context, stave);
-}
-
-function randomize_question() {
-  const clef = ["treble", "bass"];
-  const notes = [
-    "A",
-    "Bb",
-    "B",
-    "C",
-    "Db",
-    "D",
-    "Eb",
-    "E",
-    "F",
-    "Gb",
-    "G",
-    "Ab",
-  ];
-  const octave = [2, 3, 4, 5, 6];
-
-  //
-  random_note = notes[Math.floor(Math.random() * notes.length)];
-  random_octave = octave[Math.floor(Math.random() * octave.length)];
-  if (random_octave > 4) random_clef = "treble";
-  else if (random_octave == 4) {
-    random_clef = clef[Math.floor(Math.random() * clef.length)];
-  } else random_clef = "bass";
-
-  var return_object = {
-    clef: random_clef,
-    note: random_note,
-    octave: random_octave,
-  };
-  return return_object;
+  voice.draw(context, stave_);
 }
