@@ -113,6 +113,7 @@ function drawNote(VF, context, renderer, keySignature) {
     note: random_note,
     octave: random_octave,
   };
+
   return return_object;
 }
 

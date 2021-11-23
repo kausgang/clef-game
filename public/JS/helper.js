@@ -99,7 +99,7 @@ function randomize_question() {
     "G",
     "Ab",
   ];
-  const octave = [2, 3, 4, 5, 6];
+  const octave = [1, 2, 3, 4, 5, 6];
 
   //
   random_note = notes[Math.floor(Math.random() * notes.length)];
@@ -114,5 +114,6 @@ function randomize_question() {
     note: random_note,
     octave: random_octave,
   };
+
   return return_object;
 }
