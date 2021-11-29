@@ -1,20 +1,21 @@
+question = [];
+VF = Vex.Flow;
+var div = document.getElementById("clef");
+var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+
+// // Configure the rendering context.
+var context = renderer.getContext();
+context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
+
 jQuery(() => {
-  VF = Vex.Flow;
-  // Create an SVG renderer and attach it to the DIV element named "clef".
-  var div = document.getElementById("clef");
-  var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
-
-  // Configure the rendering context.
-  var context = renderer.getContext();
-  context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
-
   // draw empty C stave when the page loads
   createEmptyStave(VF, context, renderer);
 
   //   change key signature when selection updates
   $("select").on("change", () => {
     const keySignature = $("select").val();
-    changeStave(VF, context, renderer, keySignature);
+    // changeStave(VF, context, renderer, keySignature);
+    changeStave(keySignature);
   });
 
   //   on start button click
@@ -30,7 +31,16 @@ jQuery(() => {
     $("#key_signature").attr("disabled", true);
 
     const keySignature = $("select").val();
+    // startGame(VF, context, renderer, keySignature);
     startGame(VF, context, renderer, keySignature);
+    // const keySignature = $("select").val();
+    onClickAudio(
+      VF,
+      context,
+      renderer,
+      keySignature,
+      question[question.length - 1]
+    );
   });
 
   $("#stop").on("click", () => {
@@ -56,16 +66,16 @@ jQuery(() => {
 function startGame(VF, context, renderer, keySignature) {
   //draw random note
   const { note, octave } = drawNote(VF, context, renderer, keySignature);
-  // enable audio
-  question = note + "" + octave;
-  console.log(question);
-  onClickAudio(VF, context, renderer, keySignature, question);
+  question.push(note + "" + octave);
 }
 
 // play audio when clicked
-function onClickAudio(VF, context, renderer, keySignature, question) {
+function onClickAudio(VF, context, renderer, keySignature, current_question) {
   $(".piano").on("click", (e) => {
     // console.log(e.target.id); //HAS THE NOTE
+
+    console.log("HINT - ", question[question.length - 1]);
+    current_question = question[question.length - 1];
 
     keys = document.querySelector(".active");
     if (keys != null) keys.classList.remove("active");
@@ -83,8 +93,9 @@ function onClickAudio(VF, context, renderer, keySignature, question) {
 
     // verify answer
     answer = e.target.id;
-    if (question === answer) {
-      console.log("success");
+    if (current_question === answer) {
+      question = [];
+
       //   if correct answer - rerender
 
       //   show success to user
@@ -94,7 +105,8 @@ function onClickAudio(VF, context, renderer, keySignature, question) {
       }, 500);
 
       //   refresh question
-      startGame(VF, context, renderer, keySignature);
+      const { note, octave } = drawNote(VF, context, renderer, keySignature);
+      question.push(note + "" + octave);
     }
   });
 }
@@ -117,9 +129,8 @@ function drawNote(VF, context, renderer, keySignature) {
   return return_object;
 }
 
-function changeStave(VF, context, renderer, keySignature) {
+function changeStave(keySignature) {
   // get the value from select element
-  //   const key = this.value;
   //   hide the empty C stave
   $("#clef").children().empty();
   //   create stave for the given key signature
