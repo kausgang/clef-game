@@ -107,6 +107,12 @@ function onClickAudio(VF, context, renderer, keySignature, current_question) {
       //   refresh question
       const { note, octave } = drawNote(VF, context, renderer, keySignature);
       question.push(note + "" + octave);
+    } else {
+      //   show success to user
+      $("#clef_holder").css("background-color", " #e78191");
+      setTimeout(function () {
+        $("#clef_holder").css("background-color", "");
+      }, 500);
     }
   });
 }
